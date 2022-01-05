@@ -1,8 +1,8 @@
-# IMPORTS #
+###### IMPORTS ######
 import my_validators as va
 import random
 
-#  CLASSES #
+###### CLASSES ######
 class Die():
 
     def __init__(self,sides=6,color="white",polarity="+"):
@@ -63,7 +63,9 @@ class DiceSet():
             i += 1
         return str_dice_list
 
-    def __iter__(self): return iter(self.dice_list)
+    def __iter__(self):
+        for current_die in self.dice_list:
+            yield current_die
 
     @property
     def name(self): return self._name
@@ -215,7 +217,7 @@ class DiceBox():
                 current_file_line = current_file_line[:-1] + "\n"
                 dice_box_file.write(current_file_line)
 
-# FUNCTIONS #
+###### FUNCTIONS ######
 def menu_selection():
 
     menu_input_msg = """\nWhat would you like to do?
@@ -249,6 +251,7 @@ def create_new_dice(dice_box):
     quantity_of_dice = int( va.validate_input(r"^[1-9]+[0-9]*$",input_msg,invalid_input_msg) )
 
     for i in range(quantity_of_dice):
+
         input_msg = "\nHow many sides will the die #" + str(i+1) + " have? (2 or more): "
         invalid_input_msg = "\nPlease input an integer, 2 or higher."
         die_sides = int( va.validate_input(r"^(1[0-9]+|[2-9][0-9]*)$",input_msg,invalid_input_msg) )
@@ -261,7 +264,7 @@ def create_new_dice(dice_box):
         invalid_input_msg = "\nPlease input only '+' or '-'."
         die_polarity = va.validate_input(r"^[\+\-]$",input_msg,invalid_input_msg)
 
-        current_die = Die(die_sides,die_color,die_polarity)
+        current_die = Die( die_sides, die_color, die_polarity )
 
         if dice_box.is_empty():
             new_dice_set = create_new_dice_set_with_die(current_die)
@@ -367,10 +370,10 @@ def main_loop():
         elif option_selected == 4: delete_dice_set(main_dice_box)
         elif option_selected == 5: throw_dice(main_dice_box)
         elif option_selected == 6:
-            print("\nThank you for using Dice Simulator! See you later! :D")
+            print("\nThank you for using Dice Simulator! See you later :)")
             exit = True
 
-        main_dice_box.save_dice_box("dice_box_2.txt")
+        main_dice_box.save_dice_box("dice_box.txt")
 
-# EXECUTION #
+###### EXECUTION ######
 main_loop()

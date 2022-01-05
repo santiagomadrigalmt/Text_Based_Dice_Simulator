@@ -1,4 +1,0 @@
-set1,6,white,+,6,black,+
-set2,4,black,-,8,black,-,6,red,+,6,blue,+,100,gray,-
-set3,30,purple,-,30,transparent,+
-set4,2,copper,+,4,purple nova,-,6,burning red,+
